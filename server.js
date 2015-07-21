@@ -410,6 +410,10 @@ function sendFile(server, req, res, stat, file) {
   if (contentParts.ranges && contentParts.ranges.length > 1) {
     res.headers['Content-Type'] = 'multipart/byteranges; boundary=' + MULTIPART_SEPARATOR;
   } else {
+    if(file.split("\\").pop().indexOf(".") == -1){
+      contentType = "text/html";
+      console.log('hacky s3 no extension emulation');
+	 }	
     res.headers['Content-Type']   = contentType;
     res.headers['Content-Length'] = contentParts.size;
 
